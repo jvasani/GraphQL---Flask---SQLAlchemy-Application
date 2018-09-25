@@ -1,12 +1,24 @@
-import flask
+from flask import Flask
+from flask_graphql import GraphQLView
 
-app = flask.Flask(__name__)
+from models import db_session
+from schema import schema, Department
 
+app = Flask(__name__)
+app.debug = True
 
-@app.route("/")
-def home():
-    return "Welcome Jigar!"
+app.add_url_rule(
+    '/graphql',
+    view_func=GraphQLView.as_view(
+        'graphql',
+        schema=schema,
+        graphiql=True # for having the GraphiQL interface
+    )
+)
 
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run()
