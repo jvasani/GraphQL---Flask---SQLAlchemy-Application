@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EmployeeList</title>
+</head>
+<body>
+<h1> All Employee List</h1>
+{%for employee in myEmployee%}
+    <li>{{employee.EmpID}} || {{employee.EmployeeName}} || {{employee.Department}}</li>
+    {% endfor %}
+</body>
+</html>
