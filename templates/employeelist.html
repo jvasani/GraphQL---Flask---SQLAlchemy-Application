@@ -3,11 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>EmployeeList</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+
+    <script src="{{ url_for('static', filename='js/jquery-1.8.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
 </head>
+
+<script>
+
+function setupData() {
+    $(document).ready(function () {
+        $('#list').DataTable({
+            "ajax": {
+
+                "url": "/employee",
+                "dataType": "json",
+                "dataSrc": "data",
+                "contentType":"application/json"
+            },
+            "columns": [
+                {"data": "id"},
+                {"data": "Empname"},
+                {"data": "Department"},
+                {"data": "Salary"}
+            ]
+        });
+    });
+}
+
+$( window ).on( "load", setupData );
+
+</script>
+
 <body>
-<h1> All Employee List</h1>
-{%for employee in myEmployee%}
-    <li>{{employee.EmpID}} || {{employee.EmployeeName}} || {{employee.Department}}</li>
-    {% endfor %}
+<div class="container">
+    <h1> All Employee List</h1>
+
+    <table class='table' id='' style="width:100%">
+
+        <thead>
+        <tr>
+            {%for employee in allEmployee%}
+            <th>{{employee.EmpID}}</th>
+            <th>{{employee.EmployeeName}}</th>
+            <th>{{employee.Department}}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th>EmpID</th>
+            <th>EmployeeName</th>
+            <th>Department</th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
 </body>
 </html>
