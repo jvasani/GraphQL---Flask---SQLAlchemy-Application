@@ -5,22 +5,21 @@
     <title>EmployeeList</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
 
     <script src="{{ url_for('static', filename='js/jquery-1.8.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
     <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
-            <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js
-"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 
 </head>
 
 <script>
 
-var data = {{allEmployee|tojson}};
+var data = {{allEmployee|tojson|safe}};
 data = JSON.stringify(data);
 data = data.replace(/\n/g, '');
 data = data.replace(/\\/g, '');
@@ -28,10 +27,16 @@ data = data.replace(/\["/g, '[');
 data = data.replace(/\"]/g, ']');
 data = data.replace(/\}"/g, '}');
 data = data.replace(/\"{/g, '{');
-//data = JSON.parse(data);
+data = JSON.parse(data);
 //data = JSON.stringify(data);
 console.log(data);
 
+/*var id = [], name = [], salary = []; department = [];
+var len = data.length;
+for(var i = 0; i < len; i++){
+       id = data[i].id;
+       name = data[i].name;
+}*/
 
 
     $(document).ready(function () {
@@ -39,16 +44,13 @@ console.log(data);
             "data": data,
 
             "columns": [
-                {"title": "id"},
-                {"title": "name"},
-                {"title": "department"},
-                {"title": "salary"}
+                {"data": "id"},
+                {"data": "name"},
+                {"data": "department"},
+                {"data": "salary"}
             ]
         });
     });
-
-
-
 
 </script>
 
@@ -56,12 +58,14 @@ console.log(data);
 <div class="container">
     <h1> All Employee List</h1>
 
-    <table class='table' id='list' style="width:100%">
+    <table class="table table-striped table-bordered" id='list' style="width:100%">
 
         <thead>
         <tr>
-
-
+            <th>Id</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Salary</th>
         </tr>
         </thead>
 
