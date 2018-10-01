@@ -17,22 +17,44 @@ app.config['JSON_ADD_STATUS'] = False
 
 @app.route("/employee")
 def listAllEmployee():
-    employees = db_session.query(Employee.EmpID, Employee.EmployeeName, Employee.Department, Employee.JobTitle,
-                                 Employee.Salary)  # type: object
+    employees = db_session.query(Employee.EmpID, Employee.EmployeeName, Employee.Department,
+                                 Employee.Salary).all()   # type: object
 
-    emp = {}
+    empdata = []
+    elist = {}
+    for row in employees[:50]:
+        data = list(row)
+        #print json.dumps(data, ensure_ascii=False, indent=4)
+        elist["id"] = data[0]
+        elist["name"] = data[1]
+        elist["department"] = data[2]
+        elist["salary"] = data[3]
 
-    for id in employees[:5]:
-        for name in id:
-            for dept in id:
-                for salary in id:
-                    emp["id"] = id[0]
-                    emp["Name"] = name
-                    emp["Department"] = dept
-                    emp["Salary"] = salary
-                    empdata = (json.dumps(emp, ensure_ascii=False, indent=4))
-                    #print empdata
-                    return render_template("employeelist.html", allEmployee=empdata)
+
+
+        empdata.append(json.dumps(elist, skipkeys=False, ensure_ascii=True,
+           check_circular=True, allow_nan=True, cls=None, 
+           indent=None, separators=None, encoding='utf-8', 
+           default=None, sort_keys=False))
+        print empdata
+
+
+    return render_template("employeelist.html", allEmployee=empdata)
+        #return data
+
+    #print data
+
+    # for id in employees:
+    #     for name in id:
+    #         for dept in id:
+    #             for salary in id:
+    #                 emp["id"] = id[0]
+    #                 emp["Name"] = name
+    #                 emp["Department"] = dept
+    #                 emp["Salary"] = salary
+    #                 empdata = (json.dumps(emp, ensure_ascii=False, indent=4))
+    #                 #print empdata
+    #                 return render_template("employeelist.html", allEmployee=empdata)
 
 
 

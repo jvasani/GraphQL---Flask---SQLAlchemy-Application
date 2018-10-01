@@ -33,8 +33,9 @@ class Employee(db.Model):
     JobTitle = Column(String)
     Salary = Column(Integer)
 
-    def __init__(self, EmpID, EmployeeName, Department):
+    def __init__(self, EmpID, EmployeeName, Department, Salary):
         self.EmpID = EmpID
         self.EmployeeName = EmployeeName
         self.Department = Department
+        self.Salary = Salary
 
