@@ -20,7 +20,7 @@ def listAllEmployee():
 
     empdata = []
     elist = {}
-    for row in employees:
+    for row in employees[:100]:
         data = list(row)
         # print json.dumps(data, ensure_ascii=False, indent=4)
         elist["id"] = data[0]
