@@ -5,9 +5,15 @@ body{
   color: #444;
 }
 
-.btn_addemployee #btn_addemployee{
-    background: #3f51b5;
-    color: #fff;
+button#btn_addemployee{
+    width: 20%%;
 }
 
-.btn, .form-control { border-radius: 0; }
+.dataTables_wrapper .dataTables_length {
+    float: right;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: left;
+}
+

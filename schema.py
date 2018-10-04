@@ -32,7 +32,7 @@ class Query(graphene.ObjectType):
     # Allows sorting over multiple columns, by default over the primary key
     employees = SQLAlchemyConnectionField(EmployeeCon)
     # Disable sorting over this field
-    #departments = SQLAlchemyConnectionField(DepartmentConnection, sort=None)
+    departments = SQLAlchemyConnectionField(DepartmentConnection, sort=None)
 
 
 schema = graphene.Schema(query=Query)

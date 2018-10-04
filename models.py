@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 
 
-engine = create_engine("sqlite:///database.sqlite3", convert_unicode=True)
+engine = create_engine("sqlite:///database.sqlite3", convert_unicode=True, pool_pre_ping=True, echo=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
@@ -38,4 +38,5 @@ class Employee(db.Model):
         self.EmployeeName = EmployeeName
         self.Department = Department
         self.Salary = Salary
+
 
